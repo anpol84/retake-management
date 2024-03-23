@@ -1,0 +1,1561 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+
+
+    <changeSet id="1.0.1" author="anpol84">
+        <createTable tableName="user">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="login" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="surname" type="VARCHAR(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="lastname" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="department_id" type="BIGINT">
+            </column>
+            <column name="specialization_id" type="BIGINT">
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1.0.2" author="anpol84">
+        <insert tableName="user">
+            <column name="id">1</column>
+            <column name="login">anpol84</column>
+            <column name="name">Andrey</column>
+            <column name="surname">Polyakov</column>
+            <column name="lastname">Maksimovich</column>
+            <column name="email">myemail@mail.ru</column>
+            <column name="password">$2a$10$xxHwofXVOFRhK8AzCIwo9uQuOtQa.DUukaoLv9WflZKqJtpZ/Ha7G</column>
+            <column name="role">ROLE_ADMIN</column>
+        </insert>
+
+
+    </changeSet>
+    <changeSet id="1.0.3" author="anpol84">
+        <createTable tableName="institute">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+        </createTable>
+
+
+    </changeSet>
+    <changeSet id="1.0.4" author="anpol84">
+        <createTable tableName="specialization">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="code" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="institute_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+
+    </changeSet>
+    <changeSet id="1.0.5" author="anpol84">
+        <addForeignKeyConstraint baseTableName="specialization"
+                                 baseColumnNames="institute_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedTableName="institute"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_specialization_institute"/>
+
+
+    </changeSet>
+    <changeSet id="1.0.6" author="anpol84">
+        <createTable tableName="course">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="number" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="semester" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+
+    </changeSet>
+    <changeSet id="1.0.7" author="anpol84">
+        <createTable tableName="course_institute">
+            <column name="course_id" type="BIGINT">
+            </column>
+
+            <column name="institute_id" type="BIGINT">
+            </column>
+        </createTable>
+
+
+    </changeSet>
+
+    <changeSet id="1.0.8" author="anpol84">
+        <addForeignKeyConstraint baseColumnNames="course_id"
+                                 baseTableName="course_institute"
+                                 constraintName="fk_course_institute_course"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="course"/>
+
+
+    </changeSet>
+
+    <changeSet id="1.0.9" author="anpol84">
+        <addForeignKeyConstraint baseColumnNames="institute_id"
+                                 baseTableName="course_institute"
+                                 constraintName="fk_course_institute_institute"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="institute"/>
+
+
+    </changeSet>
+    <changeSet id="1.0.10" author="anpol84">
+        <createTable tableName="course_specialization">
+            <column name="course_id" type="BIGINT">
+            </column>
+
+            <column name="specialization_id" type="BIGINT">
+            </column>
+        </createTable>
+
+
+    </changeSet>
+
+    <changeSet id="1.0.11" author="anpol84">
+        <addForeignKeyConstraint baseColumnNames="course_id"
+                                 baseTableName="course_specialization"
+                                 constraintName="fk_course_specialization_course"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="course"/>
+
+
+    </changeSet>
+
+    <changeSet id="1.0.12" author="anpol84">
+        <addForeignKeyConstraint baseColumnNames="specialization_id"
+                                 baseTableName="course_specialization"
+                                 constraintName="fk_course_specialization_specialization"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="specialization"/>
+
+
+    </changeSet>
+    <changeSet id="1.0.13" author="anpol84">
+        <createTable tableName="department">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="institute_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+
+    </changeSet>
+    <changeSet id="1.0.14" author="anpol84">
+        <addForeignKeyConstraint baseTableName="department"
+                                 baseColumnNames="institute_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedTableName="institute"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_institute_department"/>
+
+
+    </changeSet>
+    <changeSet id="1.0.15" author="anpol84">
+        <addForeignKeyConstraint baseTableName="user"
+                                 baseColumnNames="department_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedTableName="department"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_user_department"/>
+
+
+    </changeSet>
+    <changeSet id="1.0.16" author="anpol84">
+        <addForeignKeyConstraint baseTableName="user"
+                                 baseColumnNames="specialization_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedTableName="specialization"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_user_specialization"/>
+
+    </changeSet>
+    <changeSet id="1.0.17" author="anpol84">
+        <createTable tableName="untreated_student">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+
+    </changeSet>
+    <changeSet id="1.0.18" author="anpol84">
+        <addForeignKeyConstraint baseTableName="untreated_student"
+                                 baseColumnNames="user_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedTableName="user"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_user_untreated_student"/>
+
+
+    </changeSet>
+    <changeSet id="1.0.19" author="anpol84">
+        <createTable tableName="retake">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="attempt" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="course_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+    <changeSet id="1.0.20" author="anpol84">
+        <addForeignKeyConstraint baseTableName="retake"
+                                 baseColumnNames="user_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedTableName="user"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_user_retake"/>
+
+    </changeSet>
+    <changeSet id="1.0.21" author="anpol84">
+        <addForeignKeyConstraint baseTableName="retake"
+                                 baseColumnNames="course_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedTableName="course"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_course_retake"/>
+
+
+    </changeSet>
+    <changeSet id="1.0.22" author="anpol84">
+        <createTable tableName="cabinet">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="number" type="BIGINT">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+
+
+    </changeSet>
+    <changeSet id="1.0.23" author="anpol84">
+        <createTable tableName="event">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="number" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="count" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="course_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="teacher_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cabinet_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+
+    </changeSet>
+    <changeSet id="1.0.24" author="anpol84">
+        <createTable tableName="user_event">
+            <column name="user_id" type="BIGINT">
+            </column>
+
+            <column name="event_id" type="BIGINT">
+            </column>
+        </createTable>
+
+
+    </changeSet>
+    <changeSet id="1.0.25" author="anpol84">
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="user_event"
+                                 constraintName="fk_user_event_user"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user"/>
+
+    </changeSet>
+
+    <changeSet id="1.0.26" author="anpol84">
+        <addForeignKeyConstraint baseColumnNames="event_id"
+                                 baseTableName="user_event"
+                                 constraintName="fk_user_event_event"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="event"/>
+
+
+    </changeSet>
+    <changeSet id="1.0.27" author="anpol84">
+        <createTable tableName="past_retake">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="subject" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="result" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+
+    </changeSet>
+    <changeSet id="1.0.28" author="anpol84">
+        <addForeignKeyConstraint baseTableName="past_retake"
+                                 baseColumnNames="user_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"
+                                 referencedTableName="user"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_user_past_retake"/>
+
+
+    </changeSet>
+    <changeSet id="1.0.29" author="anpol84">
+        <insert tableName="institute">
+            <column name="id">1</column>
+            <column name="name">Институт информационных технологий</column>
+        </insert>
+        <insert tableName="institute">
+            <column name="id">2</column>
+            <column name="name">Институт искусственного интеллекта</column>
+        </insert>
+        <insert tableName="institute">
+            <column name="id">3</column>
+            <column name="name">Институт кибербезопасности и цифровых технологий</column>
+        </insert>
+        <insert tableName="institute">
+            <column name="id">4</column>
+            <column name="name">Институт перспективных технологий и индустриального программирования</column>
+        </insert>
+        <insert tableName="institute">
+            <column name="id">5</column>
+            <column name="name">Институт радиоэлектроники и информатики</column>
+        </insert>
+        <insert tableName="institute">
+            <column name="id">6</column>
+            <column name="name">Институт технологий управления</column>
+        </insert>
+        <insert tableName="institute">
+            <column name="id">7</column>
+            <column name="name">Институт тонких химических технологий им. М.В. Ломоносова</column>
+        </insert>
+
+
+    </changeSet>
+    <changeSet id="1.0.30" author="anpol84">
+        <insert tableName="department">
+            <column name="id">1</column>
+            <column name="name">Базовая кафедра № 231 - информационных процессов и систем</column>
+            <column name="institute_id">1</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">2</column>
+            <column name="name">Базовая кафедра № 232 - вычислительных систем реального времени</column>
+            <column name="institute_id">1</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">3</column>
+            <column name="name">Базовая кафедра № 234 - управляющих ЭВМ</column>
+            <column name="institute_id">1</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">4</column>
+            <column name="name">Базовая кафедра № 238 - высокопроизводительных вычислительных систем</column>
+            <column name="institute_id">1</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">5</column>
+            <column name="name">Базовая кафедра № 239 - автоматизированных систем организационного управления</column>
+            <column name="institute_id">1</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">6</column>
+            <column name="name">Базовая кафедра № 244 - информационных технологий в системах управления</column>
+            <column name="institute_id">1</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">7</column>
+            <column name="name">Базовая кафедра № 250 - математического обеспечения информационных систем</column>
+            <column name="institute_id">1</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">8</column>
+            <column name="name">Базовая кафедра № 256 - медицинских информационных систем</column>
+            <column name="institute_id">1</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">9</column>
+            <column name="name">Базовая кафедра № 257 - информационных технологий обработки и анализа данных в гидрометеорологии</column>
+            <column name="institute_id">1</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">10</column>
+            <column name="name">Кафедра вычислительной техники</column>
+            <column name="institute_id">1</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">11</column>
+            <column name="name">Кафедра игровой индустрии</column>
+            <column name="institute_id">1</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">12</column>
+            <column name="name">Кафедра инструментального и прикладного программного обеспечения</column>
+            <column name="institute_id">1</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">13</column>
+            <column name="name">Кафедра информационных технологий в атомной энергетике</column>
+            <column name="institute_id">1</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">14</column>
+            <column name="name">Кафедра корпоративных информационных систем</column>
+            <column name="institute_id">1</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">15</column>
+            <column name="name">Кафедра математического обеспечения и стандартизации информационных технологий</column>
+            <column name="institute_id">1</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">16</column>
+            <column name="name">Кафедра практической и прикладной информатики</column>
+            <column name="institute_id">1</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">17</column>
+            <column name="name">Кафедра прикладной математики</column>
+            <column name="institute_id">1</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">18</column>
+            <column name="name">Кафедра цифровой трансформации</column>
+            <column name="institute_id">1</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">19</column>
+            <column name="name">Кафедра информационных технологий обработки и анализа больших данных</column>
+            <column name="institute_id">1</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">20</column>
+            <column name="name">Кафедра автоматических систем</column>
+            <column name="institute_id">2</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">21</column>
+            <column name="name">Кафедра биокибернетических систем и технологий</column>
+            <column name="institute_id">2</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">22</column>
+            <column name="name">Кафедра промышленной информатики</column>
+            <column name="institute_id">2</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">23</column>
+            <column name="name">Кафедра высшей математики</column>
+            <column name="institute_id">2</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">24</column>
+            <column name="name">Кафедра компьютерной и информационной безопасности</column>
+            <column name="institute_id">2</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">25</column>
+            <column name="name">Кафедра общей информатики</column>
+            <column name="institute_id">2</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">26</column>
+            <column name="name">Кафедра проблем управления</column>
+            <column name="institute_id">2</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">27</column>
+            <column name="name">Кафедра системной инженерии</column>
+            <column name="institute_id">2</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">28</column>
+            <column name="name">Кафедра технологий искусственного интеллекта</column>
+            <column name="institute_id">2</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">29</column>
+            <column name="name">Базовая кафедра № 235 - цифровых устройств и систем защиты информации</column>
+            <column name="institute_id">2</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">30</column>
+            <column name="name">Базовая кафедра № 252 - информационной безопасности</column>
+            <column name="institute_id">2</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">31</column>
+            <column name="name">Базовая кафедра №254 – вычислительных комплексов</column>
+            <column name="institute_id">2</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">32</column>
+            <column name="name">Базовая кафедра № 530 - автоматики и управления</column>
+            <column name="institute_id">2</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">33</column>
+            <column name="name">Базовая кафедра № 536 - программного обеспечения систем радиоэлектронной аппаратуры</column>
+            <column name="institute_id">2</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">34</column>
+            <column name="name">Базовая кафедра № 539 - авиационно-космических систем обработки информации и управления</column>
+            <column name="institute_id">2</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">35</column>
+            <column name="name">Кафедра КБ-1 «Защита информации»</column>
+            <column name="institute_id">3</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">36</column>
+            <column name="name">Кафедра КБ-2 «Информационно-аналитические системы кибербезопасности»</column>
+            <column name="institute_id">3</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">37</column>
+            <column name="name">Кафедра КБ-3 «Разработка программных решений и системное программирование»</column>
+            <column name="institute_id">3</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">38</column>
+            <column name="name">Кафедра КБ-4 «Интеллектуальные системы информационной безопасности»</column>
+            <column name="institute_id">3</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">39</column>
+            <column name="name">Кафедра КБ-6 «Приборы и информационно-измерительные системы»</column>
+            <column name="institute_id">3</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">40</column>
+            <column name="name">Кафедра КБ-7 «Специальное приборостроение и системы»</column>
+            <column name="institute_id">3</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">41</column>
+            <column name="name">Кафедра КБ-9 «Предметно-ориентированные информационные системы»</column>
+            <column name="institute_id">3</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">42</column>
+            <column name="name">Кафедра КБ-12 «Правовое обеспечение национальной безопасности»</column>
+            <column name="institute_id">3</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">43</column>
+            <column name="name">Кафедра КБ-14 «Цифровые технологии обработки данных»</column>
+            <column name="institute_id">3</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">44</column>
+            <column name="name">Кафедра экономической экспертизы и финансового мониторинга</column>
+            <column name="institute_id">3</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">45</column>
+            <column name="name">Кафедра финансового учета и контроля</column>
+            <column name="institute_id">3</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">46</column>
+            <column name="name">Кафедра высшей математики</column>
+            <column name="institute_id">3</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">47</column>
+            <column name="name">Кафедра информатики</column>
+            <column name="institute_id">3</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">48</column>
+            <column name="name">Базовая кафедра «Проектирование информационно-измерительных и управляющих систем»</column>
+            <column name="institute_id">3</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">49</column>
+            <column name="name">Базовая кафедра «Прикладное программирование»</column>
+            <column name="institute_id">3</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">50</column>
+            <column name="name">Базовая кафедра «Государственные финансовые технологии»</column>
+            <column name="institute_id">3</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">51</column>
+            <column name="name">Базовая кафедра № 130 - твердотельной электроники</column>
+            <column name="institute_id">4</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">52</column>
+            <column name="name">Базовая кафедра № 132 - лазерной техники</column>
+            <column name="institute_id">4</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">53</column>
+            <column name="name">Базовая кафедра № 134 - инфракрасной техники и электронной оптики</column>
+            <column name="institute_id">4</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">54</column>
+            <column name="name">Базовая кафедра № 136 - СВЧ приборов и устройств</column>
+            <column name="institute_id">4</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">55</column>
+            <column name="name">Базовая кафедра № 140 – фотоники</column>
+            <column name="institute_id">4</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">56</column>
+            <column name="name">Базовая кафедра № 146 – материалов и функциональных структур информационных систем и СВЧ техники</column>
+            <column name="institute_id">4</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">57</column>
+            <column name="name">Базовая кафедра оптических систем и технологий при ОАО «Лыткаринский завод оптического стекла»</column>
+            <column name="institute_id">4</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">58</column>
+            <column name="name">Базовая кафедра перспективных материалов электронной техники при АО «Плутон»</column>
+            <column name="institute_id">4</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">59</column>
+            <column name="name">Кафедра высшей математики–3</column>
+            <column name="institute_id">4</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">60</column>
+            <column name="name">Кафедра индустриального программирования</column>
+            <column name="institute_id">4</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">61</column>
+            <column name="name">Кафедра компьютерного дизайна</column>
+            <column name="institute_id">4</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">62</column>
+            <column name="name">Кафедра материаловедения</column>
+            <column name="institute_id">4</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">63</column>
+            <column name="name">Кафедра метрологии и стандартизации</column>
+            <column name="institute_id">4</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">64</column>
+            <column name="name">Кафедра наноэлектроники</column>
+            <column name="institute_id">4</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">65</column>
+            <column name="name">Кафедра оптико-электронных приборов и систем</column>
+            <column name="institute_id">4</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">66</column>
+            <column name="name">Кафедра цифровых и аддитивных технологий</column>
+            <column name="institute_id">4</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">67</column>
+            <column name="name">Кафедра электроники</column>
+            <column name="institute_id">4</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">68</column>
+            <column name="name">Базовая кафедра № 332 – радиоприборостроения</column>
+            <column name="institute_id">5</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">69</column>
+            <column name="name">Базовая кафедра № 333 имени профессора Лобанова Б.С. – систем радиоэлектронной борьбы</column>
+            <column name="institute_id">5</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">70</column>
+            <column name="name">Базовая кафедра № 334 – дальней радиосвязи</column>
+            <column name="institute_id">5</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">71</column>
+            <column name="name">Базовая кафедра № 335 – радиолокации</column>
+            <column name="institute_id">5</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">72</column>
+            <column name="name">Базовая кафедра № 338 – космической радиоэлектроники</column>
+            <column name="institute_id">5</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">73</column>
+            <column name="name">Базовая кафедра № 339 – радиоэлектронных систем специального назначения</column>
+            <column name="institute_id">5</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">74</column>
+            <column name="name">Базовая кафедра № 340 – информационных космических систем</column>
+            <column name="institute_id">5</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">75</column>
+            <column name="name">Базовая кафедра № 342 – космических средств связи и управления</column>
+            <column name="institute_id">5</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">76</column>
+            <column name="name">Базовая кафедра № 343 – моделирования радиофизических процессов</column>
+            <column name="institute_id">5</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">77</column>
+            <column name="name">Базовая кафедра № 346 – радиоинформационных систем</column>
+            <column name="institute_id">5</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">78</column>
+            <column name="name">Кафедра геоинформационных систем</column>
+            <column name="institute_id">5</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">79</column>
+            <column name="name">Кафедра инженерной графики</column>
+            <column name="institute_id">5</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">80</column>
+            <column name="name">Кафедра инженерной экологии техносферы</column>
+            <column name="institute_id">5</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">81</column>
+            <column name="name">Кафедра иностранных языков</column>
+            <column name="institute_id">5</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">82</column>
+            <column name="name">Кафедра конструирования и производства радиоэлектронных средств</column>
+            <column name="institute_id">5</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">83</column>
+            <column name="name">Кафедра радиоволновых процессов и технологий</column>
+            <column name="institute_id">5</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">84</column>
+            <column name="name">Кафедра радиоэлектронных систем и комплексов</column>
+            <column name="institute_id">5</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">85</column>
+            <column name="name">Кафедра телекоммуникаций</column>
+            <column name="institute_id">5</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">86</column>
+            <column name="name">Кафедра электротехнических систем</column>
+            <column name="institute_id">5</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">87</column>
+            <column name="name">Кафедра документоведения, истории государства и права</column>
+            <column name="institute_id">6</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">88</column>
+            <column name="name">Кафедра экономики</column>
+            <column name="institute_id">6</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">89</column>
+            <column name="name">Кафедра организационно-кадровой работы в органах государственной власти</column>
+            <column name="institute_id">6</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">90</column>
+            <column name="name">Кафедра информационных технологий в государственном управлении</column>
+            <column name="institute_id">6</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">91</column>
+            <column name="name">Кафедра современных технологий управления</column>
+            <column name="institute_id">6</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">92</column>
+            <column name="name">Кафедра управления инновациями</column>
+            <column name="institute_id">6</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">93</column>
+            <column name="name">Базовая кафедра менеджмента в сфере систем вооружений</column>
+            <column name="institute_id">6</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">94</column>
+            <column name="name">Кафедра статистики и математических методов в управлении</column>
+            <column name="institute_id">6</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">95</column>
+            <column name="name">Базовая кафедра управления рисками легализации доходов и финансирования терроризма</column>
+            <column name="institute_id">6</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">96</column>
+            <column name="name">Кафедра гуманитарных и социальных наук</column>
+            <column name="institute_id">6</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">97</column>
+            <column name="name">Кафедра государственно-правовых дисциплин</column>
+            <column name="institute_id">6</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">98</column>
+            <column name="name">Кафедра наилучших доступных технологий и регуляторных практик</column>
+            <column name="institute_id">6</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">99</column>
+            <column name="name">Кафедра химии и технологии переработки эластомеров имени Ф.Ф. Кошелева</column>
+            <column name="institute_id">7</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">100</column>
+            <column name="name">Кафедра химии и технологии переработки пластмасс и полимерных композитов</column>
+            <column name="institute_id">7</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">101</column>
+            <column name="name">Кафедра химии и технологии элементоорганических соединений имени К.А. Андрианова</column>
+            <column name="institute_id">7</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">102</column>
+            <column name="name">Кафедра химии и технологии редких элементов имени Большакова К.А.</column>
+            <column name="institute_id">7</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">103</column>
+            <column name="name">Кафедра химии и технологии основного органического синтеза</column>
+            <column name="institute_id">7</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">104</column>
+            <column name="name">Кафедра химии и технологии высокомолекулярных соединений имени С.С. Медведева</column>
+            <column name="institute_id">7</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">105</column>
+            <column name="name">Кафедра биотехнологии и промышленной фармации</column>
+            <column name="institute_id">7</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">106</column>
+            <column name="name">Кафедра технологии нефтехимического синтеза и искусственного жидкого топлива имени А.Н. Башкирова</column>
+            <column name="institute_id">7</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">107</column>
+            <column name="name">Кафедра химии и технологии биологически активных соединений, медицинской и органической химии</column>
+            <column name="institute_id">7</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">108</column>
+            <column name="name">Кафедра неорганической химии имени А.Н. Реформатского</column>
+            <column name="institute_id">7</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">109</column>
+            <column name="name">Кафедра аналитической химии имени И.П. Алимарина</column>
+            <column name="institute_id">7</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">110</column>
+            <column name="name">Кафедра физической химии имени Я.К. Сыркина</column>
+            <column name="institute_id">7</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">111</column>
+            <column name="name">Кафедра общей химической технологии</column>
+            <column name="institute_id">7</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">112</column>
+            <column name="name">Кафедра процессов и аппаратов химических технологий имени Н.И. Гельперина</column>
+            <column name="institute_id">7</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">113</column>
+            <column name="name">Кафедра информационных систем в химической технологии</column>
+            <column name="institute_id">7</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">114</column>
+            <column name="name">Кафедра иностранных языков</column>
+            <column name="institute_id">7</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">115</column>
+            <column name="name">Кафедра экологической и промышленной безопасности</column>
+            <column name="institute_id">7</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">116</column>
+            <column name="name">Кафедра высшей и прикладной математики</column>
+            <column name="institute_id">7</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">117</column>
+            <column name="name">Кафедра физики и технической механики</column>
+            <column name="institute_id">7</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">118</column>
+            <column name="name">Базовая кафедра «Иммунологическая химия»</column>
+            <column name="institute_id">7</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">119</column>
+            <column name="name">Кафедра наноразмерных систем и поверхностных явлений имени С.С. Воюцкого</column>
+            <column name="institute_id">7</column>
+        </insert>
+        <insert tableName="department">
+            <column name="id">120</column>
+            <column name="name">Базовая кафедра «Инженерия клеточных систем»</column>
+            <column name="institute_id">7</column>
+        </insert>
+
+
+    </changeSet>
+
+    <changeSet id="1.0.31" author="anpol84">
+        <insert tableName="specialization">
+            <column name="id">1</column>
+            <column name="name">Прикладная математика</column>
+            <column name="code">01.03.04</column>
+            <column name="institute_id">1</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">2</column>
+            <column name="name">Информатика и вычислительная техника</column>
+            <column name="code">09.03.01</column>
+            <column name="institute_id">1</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">3</column>
+            <column name="name">Прикладная информатика</column>
+            <column name="code">09.03.03</column>
+            <column name="institute_id">1</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">4</column>
+            <column name="name">Программная инженерия</column>
+            <column name="code">09.03.04</column>
+            <column name="institute_id">1</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">5</column>
+            <column name="name">Прикладная математика и информатика</column>
+            <column name="code">01.03.02</column>
+            <column name="institute_id">2</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">6</column>
+            <column name="name">Физика</column>
+            <column name="code">03.03.02</column>
+            <column name="institute_id">2</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">7</column>
+            <column name="name">Биотехнические системы и технологии</column>
+            <column name="code">12.03.04</column>
+            <column name="institute_id">2</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">8</column>
+            <column name="name">Автоматизация технологических процессов и производств</column>
+            <column name="code">15.03.04</column>
+            <column name="institute_id">2</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">9</column>
+            <column name="name">Мехатроника и робототехника</column>
+            <column name="code">15.03.06</column>
+            <column name="institute_id">2</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">10</column>
+            <column name="name">Системный анализ и управление</column>
+            <column name="code">27.03.03</column>
+            <column name="institute_id">2</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">11</column>
+            <column name="name">Компьютерная безопасность</column>
+            <column name="code">10.05.01</column>
+            <column name="institute_id">2</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">12</column>
+            <column name="name">Информационная безопасность телекоммуникационных систем</column>
+            <column name="code">10.05.02</column>
+            <column name="institute_id">2</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">13</column>
+            <column name="name">Фундаментальная информатика и информационные технологии</column>
+            <column name="code">02.03.02</column>
+            <column name="institute_id">3</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">14</column>
+            <column name="name">Информационные системы и технологии</column>
+            <column name="code">09.03.02</column>
+            <column name="institute_id">3</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">15</column>
+            <column name="name">Информационная безопасность</column>
+            <column name="code">10.03.01</column>
+            <column name="institute_id">3</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">16</column>
+            <column name="name">Приборостроение</column>
+            <column name="code">12.03.01</column>
+            <column name="institute_id">3</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">17</column>
+            <column name="name">Информационная безопасность автоматизированных систем</column>
+            <column name="code">10.05.03</column>
+            <column name="institute_id">3</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">18</column>
+            <column name="name">Информационно-аналитические системы безопасности</column>
+            <column name="code">10.05.04</column>
+            <column name="institute_id">3</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">19</column>
+            <column name="name">Безопасность информационных технологий в правоохранительной сфере</column>
+            <column name="code">10.05.05</column>
+            <column name="institute_id">3</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">20</column>
+            <column name="name">Экономическая безопасность</column>
+            <column name="code">38.05.01</column>
+            <column name="institute_id">3</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">21</column>
+            <column name="name">Правовое обеспечение национальной безопасности</column>
+            <column name="code">40.05.01</column>
+            <column name="institute_id">3</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">22</column>
+            <column name="name">Инфoрмационные системы и технологии</column>
+            <column name="code">09.13.02</column>
+            <column name="institute_id">4</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">23</column>
+            <column name="name">Электроника и наноэлектроника</column>
+            <column name="code">11.03.04</column>
+            <column name="institute_id">4</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">24</column>
+            <column name="name">Лазерная техника и лазерные технологии</column>
+            <column name="code">12.03.05</column>
+            <column name="institute_id">4</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">25</column>
+            <column name="name">Машиностроение</column>
+            <column name="code">15.03.01</column>
+            <column name="institute_id">4</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">26</column>
+            <column name="name">Материаловедение и технологии материалов</column>
+            <column name="code">22.03.01</column>
+            <column name="institute_id">4</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">27</column>
+            <column name="name">Стандартизация и метрология</column>
+            <column name="code">27.03.01</column>
+            <column name="institute_id">4</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">28</column>
+            <column name="name">Нанотехнологии и микросистемная техника</column>
+            <column name="code">28.03.01</column>
+            <column name="institute_id">4</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">29</column>
+            <column name="name">Технология художественной обработки материалов</column>
+            <column name="code">29.03.04</column>
+            <column name="institute_id">4</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">30</column>
+            <column name="name">Дизайн</column>
+            <column name="code">54.03.01</column>
+            <column name="institute_id">4</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">31</column>
+            <column name="name">Электронные и оптико-электронные приборы и системы специального назначения</column>
+            <column name="code">12.05.01</column>
+            <column name="institute_id">4</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">32</column>
+            <column name="name">Картография и геоинформатика</column>
+            <column name="code">05.03.03</column>
+            <column name="institute_id">5</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">33</column>
+            <column name="name">Информационные системы и технoлогии</column>
+            <column name="code">09.03.12</column>
+            <column name="institute_id">5</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">34</column>
+            <column name="name">Радиотехника</column>
+            <column name="code">11.03.01</column>
+            <column name="institute_id">5</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">35</column>
+            <column name="name">Инфокоммуникационные технологии и системы связи</column>
+            <column name="code">11.03.02</column>
+            <column name="institute_id">5</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">36</column>
+            <column name="name">Конструирование и технология электронных средств</column>
+            <column name="code">11.03.03</column>
+            <column name="institute_id">5</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">37</column>
+            <column name="name">Радиоэлектронные системы и комплексы</column>
+            <column name="code">11.05.01</column>
+            <column name="institute_id">5</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">38</column>
+            <column name="name">Статистика</column>
+            <column name="code">01.03.05</column>
+            <column name="institute_id">6</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">39</column>
+            <column name="name">Инноватика</column>
+            <column name="code">27.03.05</column>
+            <column name="institute_id">6</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">40</column>
+            <column name="name">Экономика</column>
+            <column name="code">38.03.01</column>
+            <column name="institute_id">6</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">41</column>
+            <column name="name">Менеджмент</column>
+            <column name="code">38.03.02</column>
+            <column name="institute_id">6</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">42</column>
+            <column name="name">Управление персоналом</column>
+            <column name="code">38.03.03</column>
+            <column name="institute_id">6</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">43</column>
+            <column name="name">Государственное и муниципальное управление</column>
+            <column name="code">38.03.04</column>
+            <column name="institute_id">6</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">44</column>
+            <column name="name">Бизнес-информатика</column>
+            <column name="code">38.03.05</column>
+            <column name="institute_id">6</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">45</column>
+            <column name="name">Юриспруденция</column>
+            <column name="code">40.03.01</column>
+            <column name="institute_id">6</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">46</column>
+            <column name="name">Документоведение и архивоведение</column>
+            <column name="code">46.03.02</column>
+            <column name="institute_id">6</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">47</column>
+            <column name="name">Химия</column>
+            <column name="code">04.03.01</column>
+            <column name="institute_id">7</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">48</column>
+            <column name="name">Химическая технология</column>
+            <column name="code">18.03.01</column>
+            <column name="institute_id">7</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">49</column>
+            <column name="name">Биотехнология</column>
+            <column name="code">19.03.01</column>
+            <column name="institute_id">7</column>
+        </insert>
+        <insert tableName="specialization">
+            <column name="id">50</column>
+            <column name="name">Техносферная безопасность</column>
+            <column name="code">20.03.01</column>
+            <column name="institute_id">7</column>
+        </insert>
+
+    </changeSet>
+    <changeSet id="1.0.32" author="anpol84">
+        <insert tableName="cabinet">
+            <column name="id">1</column>
+            <column name="number">1</column>
+        </insert>
+        <insert tableName="cabinet">
+            <column name="id">2</column>
+            <column name="number">2</column>
+        </insert>
+        <insert tableName="cabinet">
+            <column name="id">3</column>
+            <column name="number">3</column>
+        </insert>
+        <insert tableName="cabinet">
+            <column name="id">4</column>
+            <column name="number">4</column>
+        </insert>
+        <insert tableName="cabinet">
+            <column name="id">5</column>
+            <column name="number">5</column>
+        </insert>
+        <insert tableName="cabinet">
+            <column name="id">6</column>
+            <column name="number">6</column>
+        </insert>
+        <insert tableName="cabinet">
+            <column name="id">7</column>
+            <column name="number">7</column>
+        </insert>
+        <insert tableName="cabinet">
+            <column name="id">8</column>
+            <column name="number">8</column>
+        </insert>
+        <insert tableName="cabinet">
+            <column name="id">9</column>
+            <column name="number">9</column>
+        </insert>
+        <insert tableName="cabinet">
+            <column name="id">10</column>
+            <column name="number">10</column>
+        </insert>
+
+    </changeSet>
+    <changeSet id="1.0.33" author="anpol84">
+        <insert tableName="course">
+            <column name="id">1</column>
+            <column name="name">Разработка серверных частей интернет ресурсов</column>
+            <column name="number">3</column>
+            <column name="semester">1</column>
+            <column name="type">Экзамен</column>
+        </insert>
+        <insert tableName="course_institute">
+            <column name="course_id">1</column>
+            <column name="institute_id">1</column>
+        </insert>
+        <insert tableName="course">
+            <column name="id">2</column>
+            <column name="name">Программирование на С++</column>
+            <column name="number">2</column>
+            <column name="semester">1</column>
+            <column name="type">Экзамен</column>
+        </insert>
+        <insert tableName="course_institute">
+            <column name="course_id">2</column>
+            <column name="institute_id">3</column>
+        </insert>
+
+        <insert tableName="course">
+            <column name="id">3</column>
+            <column name="name">Системное программирование</column>
+            <column name="number">3</column>
+            <column name="semester">2</column>
+            <column name="type">Зачет</column>
+        </insert>
+        <insert tableName="course_institute">
+            <column name="course_id">3</column>
+            <column name="institute_id">5</column>
+        </insert>
+        <insert tableName="course_institute">
+            <column name="course_id">3</column>
+            <column name="institute_id">1</column>
+        </insert>
+
+        <insert tableName="course">
+            <column name="id">4</column>
+            <column name="name">Базы данных и SQL</column>
+            <column name="number">1</column>
+            <column name="semester">1</column>
+            <column name="type">Экзамен</column>
+        </insert>
+        <insert tableName="course_institute">
+            <column name="course_id">4</column>
+            <column name="institute_id">2</column>
+        </insert>
+
+        <insert tableName="course">
+            <column name="id">5</column>
+            <column name="name">Сетевые технологии и протоколы</column>
+            <column name="number">4</column>
+            <column name="semester">2</column>
+            <column name="type">Зачет</column>
+        </insert>
+        <insert tableName="course_institute">
+            <column name="course_id">5</column>
+            <column name="institute_id">1</column>
+        </insert>
+        <insert tableName="course_institute">
+            <column name="course_id">5</column>
+            <column name="institute_id">3</column>
+        </insert>
+
+        <insert tableName="course">
+            <column name="id">6</column>
+            <column name="name">Архитектура компьютеров и операционные системы</column>
+            <column name="number">2</column>
+            <column name="semester">1</column>
+            <column name="type">Экзамен</column>
+        </insert>
+        <insert tableName="course_institute">
+            <column name="course_id">6</column>
+            <column name="institute_id">1</column>
+        </insert>
+
+        <insert tableName="course">
+            <column name="id">7</column>
+            <column name="name">Web-программирование и разработка интернет-приложений</column>
+            <column name="number">3</column>
+            <column name="semester">2</column>
+            <column name="type">Зачет</column>
+        </insert>
+        <insert tableName="course_institute">
+            <column name="course_id">7</column>
+            <column name="institute_id">4</column>
+        </insert>
+
+        <insert tableName="course">
+            <column name="id">8</column>
+            <column name="name">Математические методы в информатике и программировании</column>
+            <column name="number">1</column>
+            <column name="semester">1</column>
+            <column name="type">Экзамен</column>
+        </insert>
+        <insert tableName="course_institute">
+            <column name="course_id">8</column>
+            <column name="institute_id">6</column>
+        </insert>
+
+    </changeSet>
+
+    <changeSet id="1.0.34" author="anpol84">
+        <insert tableName="user">
+            <column name="id">2</column>
+            <column name="login">t1</column>
+            <column name="name">Иван</column>
+            <column name="surname">Петров</column>
+            <column name="lastname">Иванович</column>
+            <column name="email">t1@1</column>
+            <column name="password">$2a$10$xxHwofXVOFRhK8AzCIwo9uQuOtQa.DUukaoLv9WflZKqJtpZ/Ha7G</column>
+            <column name="role">ROLE_TEACHER</column>
+            <column name="department_id">73</column>
+        </insert>
+        <insert tableName="user">
+            <column name="id">3</column>
+            <column name="login">t2</column>
+            <column name="name">Алексей</column>
+            <column name="surname">Иванов</column>
+            <column name="lastname">Алексеевич</column>
+            <column name="email">t2@2</column>
+            <column name="password">$2a$10$xxHwofXVOFRhK8AzCIwo9uQuOtQa.DUukaoLv9WflZKqJtpZ/Ha7G</column>
+            <column name="role">ROLE_TEACHER</column>
+            <column name="department_id">42</column>
+        </insert>
+        <insert tableName="user">
+            <column name="id">4</column>
+            <column name="login">t3</column>
+            <column name="name">Дмитрий</column>
+            <column name="surname">Сидоров</column>
+            <column name="lastname">Петрович</column>
+            <column name="email">t3@3</column>
+            <column name="password">$2a$10$xxHwofXVOFRhK8AzCIwo9uQuOtQa.DUukaoLv9WflZKqJtpZ/Ha7G</column>
+            <column name="role">ROLE_TEACHER</column>
+            <column name="department_id">91</column>
+        </insert>
+        <insert tableName="user">
+            <column name="id">5</column>
+            <column name="login">t4</column>
+            <column name="name">Сергей</column>
+            <column name="surname">Козлов</column>
+            <column name="lastname">Игоревич</column>
+            <column name="email">t4@4</column>
+            <column name="password">$2a$10$xxHwofXVOFRhK8AzCIwo9uQuOtQa.DUukaoLv9WflZKqJtpZ/Ha7G</column>
+            <column name="role">ROLE_TEACHER</column>
+            <column name="department_id">29</column>
+        </insert>
+        <insert tableName="user">
+            <column name="id">6</column>
+            <column name="login">t5</column>
+            <column name="name">Ольга</column>
+            <column name="surname">Иванова</column>
+            <column name="lastname">Сергеевна</column>
+            <column name="email">t5@5</column>
+            <column name="password">$2a$10$xxHwofXVOFRhK8AzCIwo9uQuOtQa.DUukaoLv9WflZKqJtpZ/Ha7G</column>
+            <column name="role">ROLE_TEACHER</column>
+            <column name="department_id">57</column>
+        </insert>
+        <insert tableName="user">
+            <column name="id">7</column>
+            <column name="login">t6</column>
+            <column name="name">Елена</column>
+            <column name="surname">Смирнова</column>
+            <column name="lastname">Андреевна</column>
+            <column name="email">t6@6</column>
+            <column name="password">$2a$10$xxHwofXVOFRhK8AzCIwo9uQuOtQa.DUukaoLv9WflZKqJtpZ/Ha7G</column>
+            <column name="role">ROLE_TEACHER</column>
+            <column name="department_id">105</column>
+        </insert>
+
+
+    </changeSet>
+
+</databaseChangeLog>
