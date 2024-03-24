@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Institute</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/entity.css}">
+</head>
+<body>
+<p th:text="'Название: ' + ${institute.getName()}"></p>
+
+<h2>Специальности:</h2>
+<ul>
+    <li th:each="specialization : ${institute.specializations}">
+        <a th:href="@{/specializations/{id}(id=${specialization.id})}" th:text="${specialization.name}"></a>
+    </li>
+</ul>
+<h2>Кафедры:</h2>
+<ul>
+    <li th:each="department : ${institute.departments}">
+        <a th:href="@{/departments/{id}(id=${department.id})}" th:text="${department.name}"></a>
+    </li>
+</ul>
+<h2>Дисциплины:</h2>
+<ul>
+    <li th:each="course : ${institute.courses}">
+        <a th:href="@{/courses/{id}(id=${course.id})}" th:text="${course.name}"></a>
+    </li>
+</ul>
+<a th:href="@{/institutes/{id}/update(id=${institute.getId()})}" >Изменить институт</a>
+<form th:method="DELETE" th:action="@{/institutes/{id}(id=${institute.getId()})}">
+  <input type="submit" value="Удалить институт">
+</form>
+<a th:href="@{/institutes}">Институты</a>
+</body>
+</html>

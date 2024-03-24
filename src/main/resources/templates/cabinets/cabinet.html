@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cabinet</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/entity.css}">
+</head>
+<body>
+<p th:text="'Номер кабинета: ' + ${cabinet.getNumber()}"></p>
+<a th:href="@{/cabinets/{id}/update(id=${cabinet.getId()})}" >Изменить кабинет</a>
+<form th:method="DELETE" th:action="@{/cabinets/{id}(id=${cabinet.getId()})}">
+  <input type="submit" value="Удалить кабинет">
+</form>
+<a th:href="@{/cabinets}">Кабинеты</a>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Department</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/new.css}">
+</head>
+<body>
+<form th:method="POST" th:object="${department}" th:action="@{/departments}">
+  <label for="name">Введите название кафедры:</label>
+  <input type="text" th:field="*{name}" id="name"/>
+    <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</div>
+    <br>
+    <label for="institute">Выберите институт:</label>
+    <select id="institute" th:object="${department.institute}" th:field="*{id}">
+        <option th:each="institute : ${institutes}" th:value="${institute.getId()}" th:text="${institute.getName()}"></option>
+    </select>
+    <br>
+  <input type="submit" value="Создать Кафедру"/>
+</form>
+<a th:href="@{/departments}">Кафедры</a>
+</body>
+</html>

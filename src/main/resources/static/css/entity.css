@@ -1,0 +1,38 @@
+body {
+    background-color: #F5F5F5;
+    font-family: Arial, sans-serif;
+    background: #70e1f5;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #ffd194, #70e1f5);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #ffd194, #70e1f5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+p {
+    font-size: 18px;
+    font-weight: bold;
+}
+a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #FFFFFF;
+    color: #000000;
+    text-decoration: none;
+    border-radius: 5px;
+}
+a:hover {
+    background-color: #808080;
+}
+form {
+    display: inline-block;
+    margin-top: 10px;
+}
+input[type=submit] {
+    padding: 10px 20px;
+    background-color: #FF0000;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+}
+input[type=submit]:hover {
+    background-color: #CC0000;
+}

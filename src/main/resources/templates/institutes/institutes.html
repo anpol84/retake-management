@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Institutes</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/entities.css}">
+</head>
+<body>
+<div th:each="institute : ${institutes}" >
+  <a th:href="@{/institutes/{id}(id=${institute.getId()})}"
+     th:text="${institute.getName()}"></a>
+
+</div>
+<br/>
+<hr/>
+<a class="page-link" href="institutes/new">Добавить институт</a>
+<a  class="page-link" th:href="@{/auth/profile}">Профиль</a>
+</body>
+</html>

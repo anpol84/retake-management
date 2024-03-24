@@ -1,0 +1,37 @@
+body {
+    background-color: #F5F5F5;
+    font-family: Arial, sans-serif;
+    background: #70e1f5;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #ffd194, #70e1f5);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #ffd194, #70e1f5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+a {
+    display: block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #FFFFFF;
+    color: #000000;
+    text-decoration: none;
+    border-radius: 5px;
+    width: 200px; /* ограничение ширины ссылки */
+}
+a:hover {
+    background-color: #808080;
+}
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: none;
+    border-top: 2px solid #333333;
+}
+div {
+    margin-bottom: 10px;
+}
+/* стили для ссылок на другие страницы */
+.page-link {
+    background-color: #FF9900;
+}
+.page-link:hover {
+    background-color: #CC6600;
+}

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Institute</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/new.css}">
+</head>
+<body>
+<form th:method="POST" th:object="${institute}" th:action="@{/institutes}">
+  <label for="name">Введите название института:</label>
+  <input type="text" th:field="*{name}" id="name"/>
+    <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</div>
+    <br>
+  <input type="submit" value="Создать институт"/>
+</form>
+<a th:href="@{/institutes}">Институты</a>
+</body>
+</html>

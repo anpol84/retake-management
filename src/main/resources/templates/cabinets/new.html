@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Cabinet</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/new.css}">
+</head>
+<body>
+<form th:method="POST" th:object="${cabinet}" th:action="@{/cabinets}">
+    <label for="number">Введите номер кабинета:</label>
+    <input type="text" th:field="*{number}" id="number"/>
+    <div style="color: red" th:if="${#fields.hasErrors('number')}" th:errors="*{number}">Error</div>
+    <br>
+
+
+    <input type="submit" value="Создать кабинет"/>
+</form>
+<a th:href="@{/cabinets}">Кабинеты</a>
+</body>
+</html>

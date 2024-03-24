@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Department</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/entity.css}">
+</head>
+<body>
+<p th:text="'Название: ' + ${department.name}"></p>
+<a th:href="@{/institutes/{id}(id=${department.getInstitute().getId()})}"
+   th:text="'Институт: ' + ${department.getInstitute().getName()}"></a>
+<h2>Преподаватели:</h2>
+<ul>
+    <li th:each="teacher : ${department.getTeachers()}">
+        <a th:href="@{/users/{id}(id=${teacher.id})}" th:text="${teacher.name} + ' ' +
+        ${teacher.surname} + ' ' + ${teacher.lastname}"></a>
+    </li>
+</ul>
+
+<a th:href="@{/departments/{id}/update(id=${department.getId()})}" >Изменить кафедру</a>
+<form th:method="DELETE" th:action="@{/departments/{id}(id=${department.getId()})}">
+  <input type="submit" value="Удалить Кафедру">
+</form>
+<a th:href="@{/departments}">Кафедры</a>
+</body>
+</html>
