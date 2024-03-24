@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile info</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/profileInfo.css}">
+</head>
+<body>
+<p th:text="'Логин: ' + ${user.login}"></p>
+<p th:text="'Имя: ' + ${user.name}"></p>
+<p th:text="'Фамилия: ' + ${user.surname}"></p>
+<p th:text="'Отчество: ' + ${user.lastname}"></p>
+<p th:text="'Почта: ' + ${user.email}"></p>
+<p th:if='${user.role.equals("ROLE_TEACHER")}' th:text="'Институт: ' + ${user.department.institute.name}"></p>
+<p th:if='${user.role.equals("ROLE_TEACHER")}' th:text="'Кафедра: ' + ${user.department.name}"></p>
+<p th:if='${user.role.equals("ROLE_STUDENT")}' th:text="'Институт: ' + ${user.specialization.institute.name}"></p>
+<p th:if='${user.role.equals("ROLE_STUDENT")}' th:text="'Специальность: ' + ${user.specialization.name}"></p>
+<div th:if='${user.role.equals("ROLE_STUDENT") && user2.role.equals("ROLE_ADMIN")}'>
+    <div th:if='${user.retakes != null}' th:each="retake : ${user.retakes}">
+        <p th:text="'Пересдача по предмету ' + ${retake.course.name} + ', количество попыток ' + ${retake.attempt}"></p>
+        <a th:href="@{/auth/profileInfo/{idR}/{idU}/update(idR=${retake.getId()}, idU=${user.getId()})}">Изменить количество попыток</a>
+        <form th:method="DELETE" th:action="@{/auth/profileInfo/{idR}/{idU}(idR=${retake.getId()}, idU=${user.getId()})}">
+            <input type="submit" value="Удалить Пересдачу">
+        </form>
+    </div>
+    <a th:href="@{/auth/profileInfo/{id}/new(id=${user.getId()})}">Создать пересдачу</a>
+</div>
+
+</body>
+<a href="#" onclick="history.back()">Назад</a>
+</html>

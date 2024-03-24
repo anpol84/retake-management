@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My page</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/profile.css}">
+</head>
+<body>
+<a th:if='${user.getUser().role.equals("ROLE_ADMIN")}' th:href="@{/courses}">Курсы</a>
+<a th:if='${user.getUser().role.equals("ROLE_ADMIN")}' th:href="@{/institutes}">Институты</a>
+<a th:if='${user.getUser().role.equals("ROLE_ADMIN")}' th:href="@{/specializations}">Специальности</a>
+<a th:if='${user.getUser().role.equals("ROLE_ADMIN")}' th:href="@{/departments}">Кафедры</a>
+<a th:if='${user.getUser().role.equals("ROLE_ADMIN")}' th:href="@{/cabinets}">Кабинеты</a>
+<a th:if='${user.getUser().role.equals("ROLE_ADMIN")}' th:href="@{/untreatedStudents}">Необработанные студенты</a>
+<a th:if='${user.getUser().role.equals("ROLE_ADMIN")}' th:href="@{/events}">Пересдачи</a>
+<a th:href="@{/auth/profileInfoT/{id}(id=${user.getUser().getId()})}">Информация о профиле</a>
+<a th:href="@{/auth/{id}/profileChange(id=${user.getUser().getId()})}">Изменить профиль</a>
+<a th:if='${user.getUser().role.equals("ROLE_ADMIN")}' th:href="@{/auth/profiles}">Все профили</a>
+<a th:if='${user.getUser().role.equals("ROLE_ADMIN")}' th:href="@{/auth/registerAdmin}">Добавить админа</a>
+<a th:if='${user.getUser().role.equals("ROLE_STUDENT")}' th:href="@{/auth/retakesInfo/{id}(id=${user.getUser().getId()})}">Электронная зачетная книжка</a>
+<a th:if='${user.getUser().role.equals("ROLE_TEACHER")}' th:href="@{/auth/teacherRetakes/{id}(id=${user.getUser().getId()})}">Назначенные пересдачи</a>
+<form th:method="DELETE" th:action="@{/auth/profile/{id}(id=${user.getUser().getId()})}">
+    <input type="submit" value="Удалить аккаунт">
+</form>
+<form th:method="POST" th:action="@{/auth/logout}">
+    <input type="submit" value="Выйти из аккаунта">
+</form>
+</body>
+</html>

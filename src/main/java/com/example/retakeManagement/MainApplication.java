@@ -1,4 +1,4 @@
-package com.example.courseWork;
+package com.example.retakeManagement;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

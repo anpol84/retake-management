@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Admin</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/register.css}">
+</head>
+<body>
+<form th:method="POST" th:action="@{/auth/registerAdmin}" th:object="${user}" >
+    <label for="login">Логин:</label>
+    <input type="text" id="login" th:field="*{login}"/>
+    <div style="color: red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Error</div>
+    <br>
+
+    <label for="name">Имя:</label>
+    <input type="text" id="name" th:field="*{name}"/>
+    <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</div>
+
+    <br>
+    <label for="surname">Фамилия:</label>
+    <input type="text" id="surname" th:field="*{surname}"/>
+    <div style="color: red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Error</div>
+    <br>
+
+    <label for="lastname">Отчество:</label>
+    <input type="text" id="lastname" th:field="*{lastname}"/>
+    <div style="color: red" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">Error</div>
+    <br>
+
+    <label for="email">Почта:</label>
+    <input type="text" id="email" th:field="*{email}"/>
+    <div style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error</div>
+    <br>
+
+    <label for="password">пароль:</label>
+    <input type="password" id="password" th:field="*{password}"/>
+    <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error</div>
+
+    <br>
+
+
+    <input type="submit" value="Sign up!"/>
+</form>
+</body>
+<a th:href="@{/auth/profile}">Назад</a>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profiles</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/profiles.css}">
+</head>
+<body>
+<div th:each="user : ${users}" class="user-profile">
+    <p th:text="${user.getName()} + ' ' + ${user.getSurname()} + ' ' + ${user.getLastname()}"></p>
+    <a th:href="@{/auth/profileInfoT/{id}(id=${user.getId()})}">Информация о профиле</a>
+    <a th:href="@{/auth/{id}/profileChange(id=${user.getId()})}">Изменить профиль</a>
+    <form th:method="DELETE" th:action="@{/auth/profile/{id}(id=${user.getId()})}">
+        <input type="submit" value="Удалить профиль" class="delete-profile-btn">
+    </form>
+
+</div>
+<br/>
+
+<hr/>
+<a th:href="@{/auth/profile}">Назад</a>
+</body>
+</html>

@@ -1,4 +1,4 @@
-package com.example.courseWork;
+package com.example.retakeManagement;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Value;

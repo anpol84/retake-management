@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Registration</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/register.css}">
+</head>
+<body>
+<form th:method="POST" th:action="@{/auth/register}" th:object="${user}" >
+  <label for="login">Логин:</label>
+  <input type="text" id="login" th:field="*{login}"/>
+  <div style="color: red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Error</div>
+  <br>
+
+  <label for="name">Имя:</label>
+  <input type="text" id="name" th:field="*{name}"/>
+  <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</div>
+
+  <br>
+  <label for="surname">Фамилия:</label>
+  <input type="text" id="surname" th:field="*{surname}"/>
+  <div style="color: red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Error</div>
+  <br>
+
+  <label for="lastname">Отчество:</label>
+  <input type="text" id="lastname" th:field="*{lastname}"/>
+  <div style="color: red" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">Error</div>
+  <br>
+
+  <label for="email">Почта:</label>
+  <input type="text" id="email" th:field="*{email}"/>
+  <div style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error</div>
+  <br>
+
+  <label for="password">пароль:</label>
+  <input type="password" id="password" th:field="*{password}"/>
+  <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error</div>
+
+  <br>
+
+  <input type="radio" id="student" name="role" value="ROLE_STUDENT" th:field="*{role}"/>
+  <label class="label" for="student">Студент</label>
+  <input type="radio" id="teacher" name="role" value="ROLE_TEACHER" th:field="*{role}"/>
+  <label class="label" for="teacher">Преподаватель</label>
+  <br>
+  <div id="departmentDiv">
+  <label for="department">Выберите кафедру:</label>
+  <select id="department" th:object="${user.department}" th:field="*{id}">
+    <option th:each="department : ${departments}" th:value="${department.getId()}" th:text="${department.getName()}"></option>
+  </select>
+  <br>
+  </div>
+  <div id="specializationDiv">
+    <label for="specialization">Выберите Специальность:</label>
+    <select id="specialization" th:object="${user.specialization}" th:field="*{id}">
+      <option th:each="specialization : ${specializations}" th:value="${specialization.getId()}" th:text="${specialization.getName()}"></option>
+    </select>
+    <br>
+  </div>
+  <input type="submit" value="Sign up!"/>
+</form>
+</body>
+<a th:href="@{/auth/login}">Вход</a>
+<script type="text/javascript" th:src="@{/js/registerScript.js}"></script>
+</html>

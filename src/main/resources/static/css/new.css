@@ -1,0 +1,89 @@
+body {
+    background-color: #F5F5F5;
+    font-family: Arial, sans-serif;
+    background: #70e1f5;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #ffd194, #70e1f5);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #ffd194, #70e1f5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+form {
+    width: 50%;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+input[type="text"],
+select {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+select[multiple] {
+    height: 150px;
+}
+
+input[type="submit"] {
+    display: block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #3399FF;
+    color: #FFFFFF;
+    text-decoration: none;
+    border-radius: 5px;
+    width: 200px; /* ограничение ширины кнопки */
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #0066CC;
+}
+
+a {
+    display: block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #3399FF;
+    color: #FFFFFF;
+    text-decoration: none;
+    border-radius: 5px;
+    width: 200px; /* ограничение ширины ссылки */
+}
+
+a:hover {
+    background-color: #0066CC;
+}
+
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: none;
+    border-top: 2px solid #333333;
+}
+
+div {
+    margin-bottom: 10px;
+}
+
+/* стили для ссылок на другие страницы */
+.page-link {
+    background-color: #FF9900;
+}
+
+.page-link:hover {
+    background-color: #CC6600;
+}

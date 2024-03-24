@@ -1,9 +1,9 @@
-package com.example.courseWork;
+package com.example.retakeManagement;
 
 import org.springframework.context.annotation.*;
 
 @Configuration
-@Import({DatabaseConfiguration.class})
+@Import({DatabaseConfiguration.class, SecurityConfig.class})
 @ComponentScan(basePackages = "com.example")
 public class ApplicationConfiguration {
 
