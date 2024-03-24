@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>New Retake</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/new.css}">
+</head>
+<body>
+<form th:method="PUT" th:object="${retake}" th:action="@{/auth/profileInfo/{idR}/{idU}(idR=${idR}, idU=${idU})}">
+
+  <label for="attempt">Введите Количество попыток пересдачи:</label>
+  <input type="text" th:field="*{attempt}" id="attempt"/>
+  <div style="color: red" th:if="${#fields.hasErrors('attempt')}" th:errors="*{attempt}">Error</div>
+  <br>
+  <input type="submit" value="Изменить количество попыток"/>
+</form>
+<a th:href="@{/auth/profileInfo/{id}(id=${idU})}">Профиль</a>
+</body>
+</html>

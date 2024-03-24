@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Event</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/new.css}">
+</head>
+<body>
+<form th:method="POST" th:object="${event}" th:action="@{/events}">
+    <label for="course">Выберите предмет</label>
+    <select id="course" th:object="${event.course}" th:field="*{id}">
+        <option th:each="course: ${courses}" th:value="${course.getId()}" th:text="${course.getName()}"></option>
+    </select>
+    <br>
+
+    <label for="teacher">Выберите преподавателя</label>
+    <select id="teacher" th:object="${event.teacher}" th:field="*{id}">
+        <option th:each="teacher: ${teachers}" th:value="${teacher.getId()}" th:text="${teacher.name} + ' ' + ${teacher.surname} + ' ' + ${teacher.lastname}"></option>
+    </select>
+    <br>
+
+    <label for="date">Введите дату:</label>
+    <input type="date" th:field="*{date}" id="date"/>
+
+
+    <label for="number">Выберите пару:</label>
+    <select th:field="*{number}" id="number">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    </select>
+    <div style="color: red" th:if="${#fields.hasErrors('number')}" th:errors="*{number}">Error</div>
+    <br>
+
+    <label for="cabinet">Выберите кабинет:</label>
+    <select id="cabinet" th:object="${event.cabinet}" th:field="*{id}">
+        <option th:each="cabinet: ${cabinets}" th:value="${cabinet.getId()}" th:text="${cabinet.number}"></option>
+    </select>
+    <div style="color: red" th:if="${#fields.hasErrors('cabinet')}" th:errors="*{cabinet}">Error</div>
+    <br>
+    <label for="count">Введите доступное количество мест:</label>
+    <input type="number" th:field="*{count}" id="count"/>
+    <div style="color: red" th:if="${#fields.hasErrors('count')}" th:errors="*{count}">Error</div>
+    <br>
+
+    <input type="submit" value="Создать Пересдачу"/>
+</form>
+<a th:href="@{/events}">Пересдачи</a>
+</body>
+
+</html>

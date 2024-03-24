@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Teacher Retakes</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/teacherRetake.css}">
+</head>
+<body>
+<div th:each="event : ${events}">
+    <p th:text="${event.getCourse().name} + ', Дата:' + ${event.getDate()} + ', Пара: ' + ${event.number} + ', Кабинет: ' + ${event.cabinet.number}"></p>
+    <a th:href="@{/auth/checkRetake/{id}(id=${event.getId()})}">Подвести итоги пересдачи</a>
+</div>
+<a th:href="@{/auth/profile}">Назад</a>
+</body>
+</html>

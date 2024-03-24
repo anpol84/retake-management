@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UntreatedStudent</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/new.css}">
+
+</head>
+<body>
+<form th:method="POST" th:object="${retake}" th:action="@{/retakes/{id}(id=${user.getId()})}">
+    <label for="courses">Выберите Курсы:</label>
+    <select th:field="*{courses}" id="courses" multiple>
+        <option th:each="course : ${courses}" th:value="${course.id}" th:text="${course.name}" ></option>
+    </select>
+    <input type="submit" value="Назначить пересдачи"/>
+</form>
+<a th:href="@{/untreatedStudents}">Студенты</a>
+</body>
+</html>

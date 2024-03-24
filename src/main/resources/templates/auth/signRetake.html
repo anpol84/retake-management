@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Retake</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/signRetake.css}">
+</head>
+<body>
+<div th:each="event : ${events}">
+    <p th:text="${event.getCourse().name} + ', Дата:' + ${event.getDate()} + ', Пара: ' + ${event.number} + ', Кабинет: ' + ${event.cabinet.number}"></p>
+
+    <form th:method="POST" th:object="${dto}" th:action="@{/auth/signEvent}">
+        <input id="eventId" type="hidden" th:attr="name='eventId'"  th:value="${event.id}"/>
+        <input id="userId" type="hidden" th:attr="name='userId'" th:value="${id}"/>
+        <button type="submit">Записаться на пересдачу</button>
+    </form>
+</div>
+<a th:href="@{/auth/retakesInfo/{id}(id=${id})}">Назад</a>
+</body>
+</html>

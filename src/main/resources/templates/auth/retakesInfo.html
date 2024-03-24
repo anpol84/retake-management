@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Retakes Info</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/retakesInfo.css}">
+</head>
+<body>
+<p th:if='${user.retakes.size() == 0 && untreatedUser != null}' >Администратор еще не обработал ваш аккаунт</p>
+<p th:if='${user.retakes.size() == 0 && untreatedUser == null}' >У вас нет пересдач!</p>
+<p th:if='${user.retakes != null}' th:each="retake : ${user.retakes}">
+    <span th:text="'Пересдача по предмету ' + ${retake.course.name} + ', количество попыток ' + ${retake.attempt}"></span>
+    <a th:if='${excitingRetakes.contains(retake.getCourse().getId()) == false}'
+       th:href="@{/auth/signRetake/{id}/{idU}(id=${retake.id}, idU=${user.getId()})}">
+        Записаться на пересдачу по этому предмету</a>
+    <span th:if='${excitingRetakes.contains(retake.getCourse().getId()) == true}' >По этому предмету уже назначена пересдача</span>
+</p>
+</body>
+<a th:href="@{/auth/userEvents/{id}(id=${user.getId()})}">Расписание назначенных пересдач</a>
+<a th:href="@{/auth/pastRetakes/{id}(id=${user.getId()})}">История пересдач</a>
+<a th:href="@{/auth/profile}">Назад</a>
+</html>

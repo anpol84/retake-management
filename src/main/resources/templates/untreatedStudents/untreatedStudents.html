@@ -1,0 +1,18 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>UntreatedStudents</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/entities.css}">
+</head>
+<body>
+<div th:each="untreatedStudent : ${untreatedStudents}" >
+  <a th:href="@{/untreatedStudents/{id}(id=${untreatedStudent.getId()})}"
+     th:text="${untreatedStudent.getUser().getName()} + ' ' + ${untreatedStudent.getUser().getSurname()} +
+' ' + ${untreatedStudent.getUser().getLastname()}"></a>
+
+</div>
+<a class="page-link" th:href="@{/auth/profile}">Профиль</a>
+</body>
+</html>

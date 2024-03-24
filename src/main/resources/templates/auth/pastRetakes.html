@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Past Retakes</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/pastRetakes.css}">
+</head>
+<body>
+<div th:each="pastRetake : ${pastRetakes}" >
+    <p th:text="${pastRetake.subject} + ', ' + ${pastRetake.date} + ' - ' + ${pastRetake.result}"></p>
+
+</div>
+<br/>
+<hr/>
+</body>
+<a href="#" onclick="history.back()">Назад</a>
+</html>

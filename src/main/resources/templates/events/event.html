@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Event</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/entity.css}">
+</head>
+<body>
+<p th:text="'Предмет: ' + ${event.course.name}"></p>
+<p th:text="'Преподаватель: ' + ${event.teacher.name} + ' ' + ${event.teacher.surname} + ' ' + ${event.teacher.lastname}"></p>
+<p th:text="'Дата: ' + ${event.date}"></p>
+<p th:text="'Пара: ' + ${event.number}"></p>
+<p th:text="'Кабинет: ' + ${event.cabinet.number}"></p>
+<p th:text="'Доступное количество мест: ' + ${event.count}"></p>
+<a th:href="@{/events/{id}/update(id=${event.getId()})}" >Изменить пересдачу</a>
+<form th:method="DELETE" th:action="@{/events/{id}(id=${event.getId()})}">
+  <input type="submit" value="Удалить пересдачу">
+</form>
+<a th:href="@{/events}">Пересдачи</a>
+</body>
+</html>

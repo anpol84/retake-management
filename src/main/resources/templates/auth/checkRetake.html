@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Check Retake</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/checkRetake.css}">
+</head>
+<body>
+<form th:method="POST" th:object="${dto}" th:action="@{/auth/checkRetakes}">
+    <div th:each="student, iterStat : ${event.students}">
+        <input type="hidden" th:attr="name='userIds[' + ${iterStat.count - 1} + ']', value=${student.id}" />
+        <label th:text="${student.name}"></label>
+        <select th:attr="name='isRetake[' + ${iterStat.count - 1} + ']'">
+            <option value="pass">Пересдал</option>
+            <option value="fail">Не пересдал</option>
+        </select>
+    </div>
+    <input type="hidden" th:attr="name='eventId', value=${event.getId()}" />
+    <input type="submit" value="Утвердить"/>
+</form>
+<a href="#" onclick="history.back()">Назад</a>
+</body>
+</html>

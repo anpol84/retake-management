@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Retake</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/new.css}">
+</head>
+<body>
+<form th:method="POST" th:object="${retake}" th:action="@{/auth/profileInfo/{id}(id=${id})}">
+
+    <label for="course">Выберите предмет пересдачи:</label>
+    <select id="course" th:object="${retake.course}" th:field="*{id}">
+    <option th:each="course : ${courses}" th:value="${course.getId()}" th:text="${course.getName()}"></option>
+    </select>
+    <div style="color: red" th:if="${#fields.hasErrors('course')}" th:errors="*{course}">Error</div>
+    <br>
+  <label for="attempt">Введите Количество попыток пересдачи:</label>
+  <input type="text" th:field="*{attempt}" id="attempt"/>
+  <div style="color: red" th:if="${#fields.hasErrors('attempt')}" th:errors="*{attempt}">Error</div>
+  <br>
+  <input type="submit" value="Создать пересдачу"/>
+</form>
+<a th:href="@{/auth/profileInfo/{id}(id=${id})}">Профиль</a>
+</body>
+</html>
