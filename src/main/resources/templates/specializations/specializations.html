@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Specializations</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/entities.css}">
+</head>
+<body>
+<div th:each="specialization : ${specializations}" >
+  <a th:href="@{/specializations/{id}(id=${specialization.getId()})}"
+     th:text="${specialization.getName()} + ', ' + ${specialization.code}"></a>
+
+</div>
+<br/>
+<hr/>
+<a class="page-link" href="specializations/new">Добавить Специальность</a>
+<a class="page-link" th:href="@{/auth/profile}">Профиль</a>
+</body>
+</html>

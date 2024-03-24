@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Course</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/entity.css}">
+</head>
+<body>
+<p th:text="'Название: ' + ${course.getName()}"></p>
+<p th:text="'Год обучения: ' + ${course.getNumber()}"></p>
+<p th:text="'Семестр обучения: ' + ${course.getSemester()}"></p>
+<p th:text="'Тип аттестации: ' + ${course.getType()}"></p>
+<h2>Институты:</h2>
+<ul>
+    <li th:each="institute : ${course.institutes}">
+        <a th:href="@{/institutes/{id}(id=${institute.id})}" th:text="${institute.name}"></a>
+    </li>
+</ul>
+<h2>Специальности:</h2>
+<ul>
+    <li th:each="specialization : ${course.specializations}">
+        <a th:href="@{/specializations/{id}(id=${specialization.id})}" th:text="${specialization .name}"></a>
+    </li>
+</ul>
+<a th:href="@{/courses/{id}/update(id=${course.getId()})}" >Изменить курс</a>
+<form th:method="DELETE" th:action="@{/courses/{id}(id=${course.getId()})}">
+  <input type="submit" value="Удалить курс">
+</form>
+<a th:href="@{/courses}">Курсы</a>
+</body>
+</html>

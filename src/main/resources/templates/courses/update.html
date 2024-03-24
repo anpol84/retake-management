@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Course</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/new.css}">
+</head>
+
+<body>
+<form th:method="PUT" th:object="${course}" th:action="@{/courses/{id}(id=${course.getId()})}">
+    <label for="name">Введите название курса:</label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</div>
+    <br>
+
+    <label for="number">Выберите год обучения:</label>
+    <select th:field="*{number}" id="number">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+    <div style="color: red" th:if="${#fields.hasErrors('number')}" th:errors="*{number}">Error</div>
+    <br>
+
+    <label for="semester">Выберите семестр:</label>
+    <select th:field="*{semester}" id="semester">
+        <option value="1">1</option>
+        <option value="2">2</option>
+    </select>
+    <div style="color: red" th:if="${#fields.hasErrors('semester')}" th:errors="*{semester}">Error</div>
+    <br>
+    <label for="type">Выберите тип аттестации:</label>
+    <select th:field="*{type}" id="type">
+        <option value="Зачет">Зачет</option>
+        <option value="Экзамен">Экзамен</option>
+    </select>
+    <div style="color: red" th:if="${#fields.hasErrors('type')}" th:errors="*{type}">Error</div>
+    <br>
+
+    <label for="institutes">Выберите институты:</label>
+    <select th:field="*{institutes}" id="institutes" multiple>
+        <option th:each="institute : ${institutes}" th:value="${institute.id}" th:text="${institute.name}"></option>
+    </select>
+    <div style="color: red" th:if="${#fields.hasErrors('institutes')}" th:errors="*{institutes}">Error</div>
+    <br>
+
+    <label for="specializations">Выберите специальности:</label>
+
+    <select th:field="*{specializations}" id="specializations" multiple>
+        <option th:each="specialization : ${specializations}" th:value="${specialization.id}" th:text="${specialization.name}" th:attr="data-institute=${specialization.institute.id}" style="display:none;"></option>
+    </select>
+    <div style="color: red" th:if="${#fields.hasErrors('specializations')}" th:errors="*{specializations}">Error</div>
+    <br>
+
+    <input type="submit" value="Изменить курс"/>
+</form>
+
+<a th:href="@{/courses}">Курсы</a>
+
+</body>
+<script type="text/javascript" th:src="@{/js/courseScript.js}"></script>
+
+
+</html>

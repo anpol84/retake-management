@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Specialization</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/new.css}">
+</head>
+<body>
+<form th:method="POST" th:object="${specialization}" th:action="@{/specializations}">
+  <label for="name">Введите название специальности:</label>
+  <input type="text" th:field="*{name}" id="name"/>
+    <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</div>
+    <br>
+    <label for="code">Введите код специальности:</label>
+    <input type="text" th:field="*{code}" id="code"/>
+    <div style="color: red" th:if="${#fields.hasErrors('code')}" th:errors="*{code}">Error</div>
+    <br>
+    <label for="institute">Выберите институт:</label>
+    <select id="institute" th:object="${specialization.institute}" th:field="*{id}">
+    <option th:each="institute : ${institutes}" th:value="${institute.getId()}" th:text="${institute.getName()}"></option>
+    </select>
+    <br>
+  <input type="submit" value="Создать специальность"/>
+</form>
+<a th:href="@{/specializations}">Специальности</a>
+</body>
+</html>
